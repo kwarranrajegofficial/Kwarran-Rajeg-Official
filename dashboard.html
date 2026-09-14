@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Dashboard - Kwarran Rajeg Official</title>
+
+    <!-- SUPABASE -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <style>
         * {
@@ -271,6 +275,20 @@
             color: white;
         }
 
+        /* STATUS */
+        #status {
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            background: #172554;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 12px;
+            display: none;
+            z-index: 9999;
+        }
+
         /* RESPONSIVE */
         @media (max-width: 1000px) {
             .cards {
@@ -423,7 +441,6 @@
 
         <div class="content">
 
-
             <!-- WELCOME -->
             <div class="welcome">
 
@@ -451,7 +468,7 @@
 
                 <div class="card">
                     <div class="card-icon">📰</div>
-                    <h3>0</h3>
+                    <h3 id="totalBerita">...</h3>
                     <p>Total Berita</p>
                 </div>
 
@@ -488,13 +505,13 @@
                     <div class="activity">
 
                         <div class="activity-item">
-                            <strong>
-                                Belum ada berita
+                            <strong id="aktivitasBerita">
+                                Memuat data berita...
                             </strong>
 
                             <span>
-                                Tambahkan berita pertama
-                                melalui menu Berita.
+                                Data diambil langsung dari
+                                database Supabase.
                             </span>
                         </div>
 
@@ -558,6 +575,101 @@
         </div>
 
     </main>
+
+
+    <div id="status"></div>
+
+
+    <!-- SUPABASE CONNECTION -->
+    <script>
+
+        const SUPABASE_URL =
+            "https://yulrtyibempwhjhsrbnm.supabase.co";
+
+        const SUPABASE_KEY =
+            "sb_publishable_NKwTT7aRLheK0_2AGuvPLA_vq9AHjZY";
+
+        const supabaseClient =
+            window.supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_KEY
+            );
+
+
+        async function loadDashboard() {
+
+            const totalBerita =
+                document.getElementById("totalBerita");
+
+            const aktivitasBerita =
+                document.getElementById("aktivitasBerita");
+
+            try {
+
+                const { count, error } =
+                    await supabaseClient
+                    .from("berita")
+                    .select("*", {
+                        count: "exact",
+                        head: true
+                    });
+
+
+                if (error) {
+                    throw error;
+                }
+
+
+                totalBerita.textContent =
+                    count ?? 0;
+
+
+                if ((count ?? 0) > 0) {
+
+                    aktivitasBerita.textContent =
+                        `Database terhubung — terdapat ${count} berita.`;
+
+                } else {
+
+                    aktivitasBerita.textContent =
+                        "Belum ada berita.";
+
+                }
+
+
+                console.log(
+                    "Total berita:",
+                    count
+                );
+
+            } catch (error) {
+
+                console.error(
+                    "Supabase error:",
+                    error
+                );
+
+                totalBerita.textContent = "0";
+
+                aktivitasBerita.textContent =
+                    "Gagal mengambil data berita dari database.";
+
+                const status =
+                    document.getElementById("status");
+
+                status.textContent =
+                    "⚠️ Gagal terhubung ke Supabase";
+
+                status.style.display = "block";
+
+            }
+
+        }
+
+
+        loadDashboard();
+
+    </script>
 
 </body>
 </html>
