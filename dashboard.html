@@ -4,156 +4,520 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Dashboard | Kwarran Rajeg Official</title>
+    <title>Dashboard Admin - Kwarran Rajeg Official</title>
 
     <style>
+        /* =========================
+           RESET
+        ========================= */
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            font-family: Arial, sans-serif;
-            background: #f4f6f8;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7fb;
+            color: #1f2937;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+
+        /* =========================
+           SIDEBAR
+        ========================= */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 260px;
+            height: 100vh;
+
+            background: linear-gradient(
+                180deg,
+                #14213d 0%,
+                #1d3557 100%
+            );
+
+            color: white;
+            z-index: 1000;
+
+            display: flex;
+            flex-direction: column;
+
+            transition: 0.3s ease;
+        }
+
+        /* LOGO AREA */
+
+        .brand {
+            height: 90px;
+
+            display: flex;
+            align-items: center;
+
+            padding: 15px 20px;
+
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .brand-logo {
+            width: 52px;
+            height: 52px;
+
+            background: white;
+
+            border-radius: 12px;
+
+            padding: 5px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            margin-right: 12px;
+
+            overflow: hidden;
+        }
+
+        .brand-logo img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: contain;
+        }
+
+        .brand-text h2 {
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+
+        .brand-text p {
+            font-size: 11px;
+            color: rgba(255,255,255,0.65);
+        }
+
+
+        /* MENU */
+
+        .menu-wrapper {
+            padding: 20px 14px;
+
+            flex: 1;
+
+            overflow-y: auto;
+        }
+
+        .menu-title {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+
+            color: rgba(255,255,255,0.45);
+
+            margin: 8px 10px 10px;
+        }
+
+        .menu {
+            list-style: none;
+
+            margin-bottom: 25px;
+        }
+
+        .menu li {
+            margin-bottom: 5px;
+        }
+
+        .menu a {
+            display: flex;
+            align-items: center;
+
+            padding: 13px 14px;
+
+            border-radius: 10px;
+
+            color: rgba(255,255,255,0.8);
+
+            font-size: 14px;
+
+            transition: 0.2s;
+        }
+
+        .menu a:hover {
+            background: rgba(255,255,255,0.08);
+            color: white;
+        }
+
+        .menu a.active {
+            background: #ffffff;
+            color: #14213d;
+
+            font-weight: bold;
+
+            box-shadow: 0 5px 15px rgba(0,0,0,0.12);
+        }
+
+        .menu-icon {
+            width: 30px;
+
+            font-size: 17px;
+
+            text-align: center;
+
+            margin-right: 7px;
+        }
+
+
+        /* LOGOUT */
+
+        .logout {
+            padding: 15px;
+
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .logout a {
+            display: flex;
+            align-items: center;
+
+            padding: 12px 14px;
+
+            border-radius: 10px;
+
+            color: #ffb4b4;
+
+            font-size: 14px;
+        }
+
+        .logout a:hover {
+            background: rgba(255,255,255,0.08);
+            color: white;
+        }
+
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        .main {
+            margin-left: 260px;
+
+            min-height: 100vh;
+        }
+
+
+        /* =========================
+           TOPBAR
+        ========================= */
+
+        .topbar {
+            height: 75px;
+
+            background: white;
+
+            border-bottom: 1px solid #e5e7eb;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 35px;
+
+            position: sticky;
+            top: 0;
+
+            z-index: 100;
+        }
+
+        .page-title h1 {
+            font-size: 20px;
+            color: #14213d;
+        }
+
+        .page-title p {
+            font-size: 12px;
+
+            color: #8b95a5;
+
+            margin-top: 4px;
+        }
+
+
+        /* ADMIN */
+
+        .admin {
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+        }
+
+        .admin-avatar {
+            width: 40px;
+            height: 40px;
+
+            border-radius: 50%;
+
+            background: #14213d;
+
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-weight: bold;
+        }
+
+        .admin-name strong {
+            display: block;
+
+            font-size: 13px;
+
             color: #222;
         }
 
-        .header {
-            background: #ffffff;
-            padding: 20px 30px;
-            border-bottom: 1px solid #ddd;
+        .admin-name span {
+            display: block;
+
+            font-size: 11px;
+
+            color: #999;
+
+            margin-top: 3px;
         }
 
-        .header h1 {
-            font-size: 24px;
+
+        /* =========================
+           CONTENT
+        ========================= */
+
+        .content {
+            padding: 30px 35px;
         }
 
-        .container {
-            padding: 30px;
-        }
+
+        /* =========================
+           WELCOME
+        ========================= */
 
         .welcome {
-            background: #ffffff;
-            padding: 30px;
-            border-radius: 12px;
+            min-height: 190px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #14213d,
+                    #1d3557
+                );
+
+            border-radius: 18px;
+
+            padding: 30px 35px;
+
+            color: white;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            position: relative;
+
+            overflow: hidden;
+
             margin-bottom: 25px;
-            border: 1px solid #ddd;
+
+            box-shadow:
+                0 10px 30px rgba(20,33,61,0.18);
         }
 
-        .welcome h2 {
+        .welcome::before {
+            content: "";
+
+            position: absolute;
+
+            width: 250px;
+            height: 250px;
+
+            border-radius: 50%;
+
+            border: 35px solid rgba(255,255,255,0.04);
+
+            right: 100px;
+            top: -120px;
+        }
+
+        .welcome::after {
+            content: "";
+
+            position: absolute;
+
+            width: 180px;
+            height: 180px;
+
+            border-radius: 50%;
+
+            background: rgba(255,255,255,0.03);
+
+            right: -40px;
+            bottom: -80px;
+        }
+
+        .welcome-content {
+            position: relative;
+
+            z-index: 2;
+        }
+
+        .welcome-content .small {
+            font-size: 12px;
+
+            opacity: 0.7;
+
             margin-bottom: 10px;
         }
 
-        .logo {
-            width: 100px;
-            height: 100px;
-            object-fit: contain;
-            margin-top: 20px;
+        .welcome-content h2 {
+            font-size: 27px;
+
+            margin-bottom: 10px;
         }
 
-        .cards {
+        .welcome-content p {
+            font-size: 13px;
+
+            color: rgba(255,255,255,0.75);
+
+            max-width: 500px;
+
+            line-height: 1.6;
+        }
+
+        .welcome-logo {
+            width: 115px;
+            height: 115px;
+
+            background: white;
+
+            padding: 9px;
+
+            border-radius: 50%;
+
+            object-fit: contain;
+
+            position: relative;
+
+            z-index: 2;
+
+            box-shadow:
+                0 10px 30px rgba(0,0,0,0.2);
+        }
+
+
+        /* =========================
+           STAT CARDS
+        ========================= */
+
+        .stats {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 18px;
+
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: white;
+
+            border-radius: 15px;
+
+            padding: 22px;
+
+            border: 1px solid #e8ebf0;
+
+            box-shadow:
+                0 5px 20px rgba(0,0,0,0.035);
+
+            transition: 0.2s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+
+            box-shadow:
+                0 12px 30px rgba(0,0,0,0.08);
+        }
+
+        .stat-top {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 20px;
+        }
+
+        .stat-icon {
+            width: 45px;
+            height: 45px;
+
+            border-radius: 12px;
+
+            background: #eef2f7;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 20px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+
+            color: #929aaa;
+        }
+
+        .stat-card h3 {
+            font-size: 28px;
+
+            color: #14213d;
+
+            margin-bottom: 5px;
+        }
+
+        .stat-card p {
+            font-size: 11px;
+
+            color: #a0a7b3;
+        }
+
+
+        /* =========================
+           LOWER GRID
+        ========================= */
+
+        .dashboard-grid {
+            display: grid;
+
+            grid-template-columns:
+                2fr 1fr;
+
             gap: 20px;
         }
 
-        .card {
-            background: #ffffff;
-            padding: 25px;
-            border-radius: 12px;
-            border: 1px solid #ddd;
-        }
 
-        .card h3 {
-            font-size: 28px;
-            margin-bottom: 8px;
-        }
+        /* PANEL */
 
-        .card p {
-            color: #777;
-        }
-
-        .back {
-            display: inline-block;
-            margin-top: 30px;
-            padding: 12px 20px;
-            background: #222;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-        }
-
-        @media (max-width: 800px) {
-            .cards {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 500px) {
-            .cards {
-                grid-template-columns: 1fr;
-            }
-
-            .container {
-                padding: 15px;
-            }
-        }
-    </style>
-</head>
-
-<body>
-
-    <div class="header">
-        <h1>Dashboard Admin</h1>
-    </div>
-
-    <div class="container">
-
-        <div class="welcome">
-            <h2>Selamat Datang 👋</h2>
-
-            <p>
-                Selamat datang di Dashboard Admin
-                Kwarran Rajeg Official.
-            </p>
-
-            <img
-                src="logo.jpg"
-                alt="Logo Kwarran Rajeg"
-                class="logo"
-            >
-        </div>
-
-        <div class="cards">
-
-            <div class="card">
-                <h3>0</h3>
-                <p>Total Berita</p>
-            </div>
-
-            <div class="card">
-                <h3>0</h3>
-                <p>Total Kegiatan</p>
-            </div>
-
-            <div class="card">
-                <h3>0</h3>
-                <p>Total Anggota</p>
-            </div>
-
-            <div class="card">
-                <h3>0</h3>
-                <p>Total Galeri</p>
-            </div>
-
-        </div>
-
-        <a href="login.html" class="back">
-            Kembali ke Login
-        </a>
-
-    </div>
-
-</body>
-</html>
+        .panel {
