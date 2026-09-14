@@ -1,1 +1,295 @@
-<!doctype html><html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Login Admin | Kwarran Rajeg</title><link rel="stylesheet" href="../admin.css"></head><body><main class="login-page"><section class="login-card"><img class="logo" src="../logo.jpg" alt="Logo Kwarran Rajeg"><div class="eyebrow">GERAKAN PRAMUKA</div><h1>Admin Kwarran Rajeg</h1><p class="sub">Masuk ke panel pengelolaan website</p><form id="f"><label>Username / Email</label><input class="input" type="text" placeholder="Masukkan username" required><label>Password</label><div class="password-wrap"><input id="p" class="input" type="password" placeholder="Masukkan password" required><button class="show" type="button" onclick="p.type=p.type==='password'?'text':'password'">Lihat</button></div><button class="btn">Masuk ke Dashboard</button></form><div class="notice">🔐 <b>Prototype Tahap 1.</b> Autentikasi sungguhan belum diaktifkan. Password tidak boleh ditanam di JavaScript.</div><a class="back" href="../index.html">← Kembali ke website</a></section></main><script>document.getElementById('f').onsubmit=e=>{e.preventDefault();alert('Login belum diaktifkan. Kita sambungkan ke autentikasi aman pada tahap berikutnya.');}</script></body></html>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Login Admin - Kwarran Rajeg Official</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background:
+        radial-gradient(circle at top left, rgba(255,255,255,0.15), transparent 35%),
+        linear-gradient(135deg, #075e54, #0b7d68, #0f9d7d);
+      padding: 20px;
+    }
+
+    .login-container {
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .login-card {
+      background: rgba(255, 255, 255, 0.97);
+      border-radius: 24px;
+      padding: 40px 35px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+    }
+
+    .logo {
+      width: 90px;
+      height: 90px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      background: #075e54;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 32px;
+      font-weight: bold;
+      box-shadow: 0 8px 20px rgba(7,94,84,0.3);
+    }
+
+    .title {
+      text-align: center;
+      color: #075e54;
+      font-size: 25px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #777;
+      font-size: 14px;
+      margin-bottom: 30px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #333;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    .input-wrapper span {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 18px;
+    }
+
+    .input-wrapper input {
+      width: 100%;
+      padding: 14px 15px 14px 45px;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      outline: none;
+      font-size: 15px;
+      transition: 0.3s;
+      background: #fafafa;
+    }
+
+    .input-wrapper input:focus {
+      border-color: #0b806b;
+      background: white;
+      box-shadow: 0 0 0 4px rgba(11,128,107,0.1);
+    }
+
+    .login-button {
+      width: 100%;
+      border: none;
+      padding: 15px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #075e54, #0b806b);
+      color: white;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 5px;
+    }
+
+    .login-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(7,94,84,0.3);
+    }
+
+    .login-button:active {
+      transform: translateY(0);
+    }
+
+    .message {
+      display: none;
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .message.error {
+      display: block;
+      background: #ffe8e8;
+      color: #c62828;
+    }
+
+    .message.success {
+      display: block;
+      background: #e4f7ed;
+      color: #087443;
+    }
+
+    .back-home {
+      display: block;
+      text-align: center;
+      margin-top: 22px;
+      color: #075e54;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .back-home:hover {
+      text-decoration: underline;
+    }
+
+    .footer {
+      text-align: center;
+      color: rgba(255,255,255,0.85);
+      font-size: 12px;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 480px) {
+      .login-card {
+        padding: 32px 24px;
+      }
+
+      .title {
+        font-size: 22px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="login-container">
+
+    <div class="login-card">
+
+      <div class="logo">
+        KR
+      </div>
+
+      <h1 class="title">Admin Login</h1>
+
+      <p class="subtitle">
+        Kwarran Rajeg Official
+      </p>
+
+      <form id="loginForm">
+
+        <div class="form-group">
+          <label for="username">Username</label>
+
+          <div class="input-wrapper">
+            <span>👤</span>
+            <input
+              type="text"
+              id="username"
+              placeholder="Masukkan username"
+              autocomplete="username"
+              required
+            >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+
+          <div class="input-wrapper">
+            <span>🔒</span>
+            <input
+              type="password"
+              id="password"
+              placeholder="Masukkan password"
+              autocomplete="current-password"
+              required
+            >
+          </div>
+        </div>
+
+        <button type="submit" class="login-button">
+          Masuk ke Admin
+        </button>
+
+        <div id="message" class="message"></div>
+
+      </form>
+
+      <a href="index.html" class="back-home">
+        ← Kembali ke Website
+      </a>
+
+    </div>
+
+    <div class="footer">
+      © 2026 Kwarran Rajeg Official
+    </div>
+
+  </div>
+
+  <script>
+    const loginForm = document.getElementById("loginForm");
+    const message = document.getElementById("message");
+
+    loginForm.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      /*
+        LOGIN DEMO
+
+        Username : admin
+        Password : admin123
+
+        Nanti bagian ini bisa kita sambungkan
+        ke sistem admin/database yang sebenarnya.
+      */
+
+      if (username === "admin" && password === "admin123") {
+
+        message.className = "message success";
+        message.textContent = "Login berhasil!";
+
+        setTimeout(function() {
+          window.location.href = "dashboard.html";
+        }, 800);
+
+      } else {
+
+        message.className = "message error";
+        message.textContent = "Username atau password salah.";
+
+      }
+    });
+  </script>
+
+</body>
+</html>
