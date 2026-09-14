@@ -3,521 +3,561 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Dashboard Admin - Kwarran Rajeg Official</title>
+    <title>Dashboard - Kwarran Rajeg Official</title>
 
     <style>
-        /* =========================
-           RESET
-        ========================= */
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
 
         body {
             font-family: Arial, Helvetica, sans-serif;
-            background: #f5f7fb;
+            background: #f4f6f9;
             color: #1f2937;
         }
 
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-
-        /* =========================
-           SIDEBAR
-        ========================= */
+        /* SIDEBAR */
         .sidebar {
             position: fixed;
             left: 0;
             top: 0;
-            width: 260px;
+            width: 250px;
             height: 100vh;
-
-            background: linear-gradient(
-                180deg,
-                #14213d 0%,
-                #1d3557 100%
-            );
-
+            background: #172554;
             color: white;
-            z-index: 1000;
-
-            display: flex;
-            flex-direction: column;
-
-            transition: 0.3s ease;
+            padding: 20px 15px;
         }
 
-        /* LOGO AREA */
-
-        .brand {
-            height: 90px;
-
+        .logo-area {
             display: flex;
             align-items: center;
-
-            padding: 15px 20px;
-
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            gap: 12px;
+            padding: 5px 10px 20px;
+            border-bottom: 1px solid rgba(255,255,255,.15);
         }
 
-        .brand-logo {
-            width: 52px;
-            height: 52px;
-
+        .logo-box {
+            width: 50px;
+            height: 50px;
             background: white;
-
-            border-radius: 12px;
-
+            border-radius: 10px;
             padding: 5px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            margin-right: 12px;
-
-            overflow: hidden;
+            flex-shrink: 0;
         }
 
-        .brand-logo img {
+        .logo-box img {
             width: 100%;
             height: 100%;
-
             object-fit: contain;
         }
 
-        .brand-text h2 {
+        .logo-text h2 {
             font-size: 16px;
             margin-bottom: 4px;
         }
 
-        .brand-text p {
+        .logo-text p {
             font-size: 11px;
-            color: rgba(255,255,255,0.65);
-        }
-
-
-        /* MENU */
-
-        .menu-wrapper {
-            padding: 20px 14px;
-
-            flex: 1;
-
-            overflow-y: auto;
+            opacity: .6;
         }
 
         .menu-title {
             font-size: 10px;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-
-            color: rgba(255,255,255,0.45);
-
-            margin: 8px 10px 10px;
-        }
-
-        .menu {
-            list-style: none;
-
-            margin-bottom: 25px;
-        }
-
-        .menu li {
-            margin-bottom: 5px;
+            letter-spacing: 1px;
+            opacity: .5;
+            margin: 25px 10px 10px;
         }
 
         .menu a {
-            display: flex;
-            align-items: center;
-
+            display: block;
             padding: 13px 14px;
-
-            border-radius: 10px;
-
-            color: rgba(255,255,255,0.8);
-
+            margin-bottom: 5px;
+            color: rgba(255,255,255,.75);
+            text-decoration: none;
+            border-radius: 8px;
             font-size: 14px;
-
-            transition: 0.2s;
         }
 
         .menu a:hover {
-            background: rgba(255,255,255,0.08);
+            background: rgba(255,255,255,.1);
             color: white;
         }
 
         .menu a.active {
-            background: #ffffff;
-            color: #14213d;
-
+            background: white;
+            color: #172554;
             font-weight: bold;
-
-            box-shadow: 0 5px 15px rgba(0,0,0,0.12);
         }
 
-        .menu-icon {
-            width: 30px;
-
-            font-size: 17px;
-
-            text-align: center;
-
-            margin-right: 7px;
-        }
-
-
-        /* LOGOUT */
-
-        .logout {
-            padding: 15px;
-
-            border-top: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .logout a {
-            display: flex;
-            align-items: center;
-
-            padding: 12px 14px;
-
-            border-radius: 10px;
-
-            color: #ffb4b4;
-
-            font-size: 14px;
-        }
-
-        .logout a:hover {
-            background: rgba(255,255,255,0.08);
-            color: white;
-        }
-
-
-        /* =========================
-           MAIN
-        ========================= */
-
+        /* MAIN */
         .main {
-            margin-left: 260px;
-
+            margin-left: 250px;
             min-height: 100vh;
         }
 
-
-        /* =========================
-           TOPBAR
-        ========================= */
-
         .topbar {
-            height: 75px;
-
+            height: 70px;
             background: white;
-
             border-bottom: 1px solid #e5e7eb;
-
             display: flex;
             align-items: center;
             justify-content: space-between;
-
-            padding: 0 35px;
-
-            position: sticky;
-            top: 0;
-
-            z-index: 100;
+            padding: 0 30px;
         }
 
-        .page-title h1 {
-            font-size: 20px;
-            color: #14213d;
+        .topbar h1 {
+            color: #172554;
+            font-size: 21px;
         }
-
-        .page-title p {
-            font-size: 12px;
-
-            color: #8b95a5;
-
-            margin-top: 4px;
-        }
-
-
-        /* ADMIN */
 
         .admin {
             display: flex;
             align-items: center;
-
             gap: 10px;
         }
 
-        .admin-avatar {
+        .avatar {
             width: 40px;
             height: 40px;
-
             border-radius: 50%;
-
-            background: #14213d;
-
+            background: #172554;
             color: white;
-
             display: flex;
             align-items: center;
             justify-content: center;
-
             font-weight: bold;
         }
 
-        .admin-name strong {
+        .admin strong {
             display: block;
-
             font-size: 13px;
-
-            color: #222;
         }
 
-        .admin-name span {
-            display: block;
-
-            font-size: 11px;
-
+        .admin small {
             color: #999;
-
-            margin-top: 3px;
         }
 
-
-        /* =========================
-           CONTENT
-        ========================= */
-
+        /* CONTENT */
         .content {
-            padding: 30px 35px;
+            padding: 30px;
         }
-
-
-        /* =========================
-           WELCOME
-        ========================= */
 
         .welcome {
-            min-height: 190px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #14213d,
-                    #1d3557
-                );
-
-            border-radius: 18px;
-
-            padding: 30px 35px;
-
+            background: linear-gradient(135deg, #172554, #1e3a8a);
             color: white;
-
+            border-radius: 16px;
+            padding: 30px;
             display: flex;
-
             align-items: center;
-
             justify-content: space-between;
-
-            position: relative;
-
-            overflow: hidden;
-
             margin-bottom: 25px;
-
-            box-shadow:
-                0 10px 30px rgba(20,33,61,0.18);
         }
 
-        .welcome::before {
-            content: "";
-
-            position: absolute;
-
-            width: 250px;
-            height: 250px;
-
-            border-radius: 50%;
-
-            border: 35px solid rgba(255,255,255,0.04);
-
-            right: 100px;
-            top: -120px;
-        }
-
-        .welcome::after {
-            content: "";
-
-            position: absolute;
-
-            width: 180px;
-            height: 180px;
-
-            border-radius: 50%;
-
-            background: rgba(255,255,255,0.03);
-
-            right: -40px;
-            bottom: -80px;
-        }
-
-        .welcome-content {
-            position: relative;
-
-            z-index: 2;
-        }
-
-        .welcome-content .small {
-            font-size: 12px;
-
-            opacity: 0.7;
-
+        .welcome h2 {
+            font-size: 25px;
             margin-bottom: 10px;
         }
 
-        .welcome-content h2 {
-            font-size: 27px;
-
-            margin-bottom: 10px;
-        }
-
-        .welcome-content p {
+        .welcome p {
+            color: rgba(255,255,255,.75);
             font-size: 13px;
-
-            color: rgba(255,255,255,0.75);
-
-            max-width: 500px;
-
-            line-height: 1.6;
         }
 
-        .welcome-logo {
-            width: 115px;
-            height: 115px;
-
-            background: white;
-
-            padding: 9px;
-
-            border-radius: 50%;
-
+        .welcome img {
+            width: 100px;
+            height: 100px;
             object-fit: contain;
-
-            position: relative;
-
-            z-index: 2;
-
-            box-shadow:
-                0 10px 30px rgba(0,0,0,0.2);
+            background: white;
+            border-radius: 50%;
+            padding: 8px;
         }
 
-
-        /* =========================
-           STAT CARDS
-        ========================= */
-
-        .stats {
+        /* CARDS */
+        .cards {
             display: grid;
-
-            grid-template-columns:
-                repeat(4, 1fr);
-
+            grid-template-columns: repeat(4, 1fr);
             gap: 18px;
-
             margin-bottom: 25px;
         }
 
-        .stat-card {
+        .card {
             background: white;
-
-            border-radius: 15px;
-
+            border-radius: 14px;
             padding: 22px;
-
-            border: 1px solid #e8ebf0;
-
-            box-shadow:
-                0 5px 20px rgba(0,0,0,0.035);
-
-            transition: 0.2s;
+            border: 1px solid #e5e7eb;
         }
 
-        .stat-card:hover {
-            transform: translateY(-4px);
-
-            box-shadow:
-                0 12px 30px rgba(0,0,0,0.08);
+        .card-icon {
+            font-size: 23px;
+            margin-bottom: 15px;
         }
 
-        .stat-top {
-            display: flex;
-
-            justify-content: space-between;
-
-            align-items: center;
-
-            margin-bottom: 20px;
-        }
-
-        .stat-icon {
-            width: 45px;
-            height: 45px;
-
-            border-radius: 12px;
-
-            background: #eef2f7;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            font-size: 20px;
-        }
-
-        .stat-label {
-            font-size: 12px;
-
-            color: #929aaa;
-        }
-
-        .stat-card h3 {
-            font-size: 28px;
-
-            color: #14213d;
-
+        .card h3 {
+            color: #172554;
+            font-size: 27px;
             margin-bottom: 5px;
         }
 
-        .stat-card p {
-            font-size: 11px;
-
-            color: #a0a7b3;
+        .card p {
+            color: #8b95a5;
+            font-size: 12px;
         }
 
-
-        /* =========================
-           LOWER GRID
-        ========================= */
-
-        .dashboard-grid {
+        /* LOWER */
+        .bottom {
             display: grid;
-
-            grid-template-columns:
-                2fr 1fr;
-
+            grid-template-columns: 2fr 1fr;
             gap: 20px;
         }
 
-
-        /* PANEL */
-
         .panel {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .panel-title {
+            padding: 18px 20px;
+            border-bottom: 1px solid #eee;
+            font-weight: bold;
+            color: #172554;
+        }
+
+        .activity {
+            padding: 20px;
+        }
+
+        .activity-item {
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-item strong {
+            display: block;
+            font-size: 13px;
+            margin-bottom: 5px;
+        }
+
+        .activity-item span {
+            color: #999;
+            font-size: 11px;
+        }
+
+        .actions {
+            padding: 20px;
+        }
+
+        .action {
+            display: block;
+            background: #f6f7f9;
+            padding: 14px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #333;
+            font-size: 13px;
+        }
+
+        .action:hover {
+            background: #172554;
+            color: white;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1000px) {
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .bottom {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .sidebar {
+                position: static;
+                width: 100%;
+                height: auto;
+            }
+
+            .main {
+                margin-left: 0;
+            }
+
+            .topbar {
+                padding: 0 18px;
+            }
+
+            .content {
+                padding: 15px;
+            }
+
+            .welcome {
+                padding: 22px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .welcome img {
+                width: 70px;
+                height: 70px;
+            }
+
+            .welcome h2 {
+                font-size: 20px;
+            }
+
+            .admin div:last-child {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="logo-area">
+
+            <div class="logo-box">
+                <img src="logo.jpg" alt="Logo Kwarran Rajeg">
+            </div>
+
+            <div class="logo-text">
+                <h2>Kwarran Rajeg</h2>
+                <p>Official Admin</p>
+            </div>
+
+        </div>
+
+        <div class="menu-title">
+            Menu Utama
+        </div>
+
+        <div class="menu">
+
+            <a href="dashboard.html" class="active">
+                🏠 &nbsp; Dashboard
+            </a>
+
+            <a href="#">
+                📰 &nbsp; Berita
+            </a>
+
+            <a href="#">
+                📅 &nbsp; Kegiatan
+            </a>
+
+            <a href="#">
+                👥 &nbsp; Data Anggota
+            </a>
+
+            <a href="#">
+                📷 &nbsp; Galeri
+            </a>
+
+            <a href="#">
+                📄 &nbsp; Dokumen
+            </a>
+
+        </div>
+
+        <div class="menu-title">
+            Sistem
+        </div>
+
+        <div class="menu">
+
+            <a href="#">
+                ⚙️ &nbsp; Pengaturan
+            </a>
+
+            <a href="login.html">
+                🚪 &nbsp; Keluar
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+    <main class="main">
+
+        <div class="topbar">
+
+            <h1>
+                Dashboard
+            </h1>
+
+            <div class="admin">
+
+                <div class="avatar">
+                    A
+                </div>
+
+                <div>
+                    <strong>Administrator</strong>
+                    <small>Super Admin</small>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="content">
+
+
+            <!-- WELCOME -->
+            <div class="welcome">
+
+                <div>
+                    <h2>
+                        Selamat Datang, Admin 👋
+                    </h2>
+
+                    <p>
+                        Kelola website Kwarran Rajeg
+                        melalui panel administrasi.
+                    </p>
+                </div>
+
+                <img
+                    src="logo.jpg"
+                    alt="Logo Kwarran Rajeg"
+                >
+
+            </div>
+
+
+            <!-- CARDS -->
+            <div class="cards">
+
+                <div class="card">
+                    <div class="card-icon">📰</div>
+                    <h3>0</h3>
+                    <p>Total Berita</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">📅</div>
+                    <h3>0</h3>
+                    <p>Total Kegiatan</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">👥</div>
+                    <h3>0</h3>
+                    <p>Total Anggota</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">📷</div>
+                    <h3>0</h3>
+                    <p>Total Galeri</p>
+                </div>
+
+            </div>
+
+
+            <!-- BOTTOM -->
+            <div class="bottom">
+
+                <div class="panel">
+
+                    <div class="panel-title">
+                        Aktivitas Terbaru
+                    </div>
+
+                    <div class="activity">
+
+                        <div class="activity-item">
+                            <strong>
+                                Belum ada berita
+                            </strong>
+
+                            <span>
+                                Tambahkan berita pertama
+                                melalui menu Berita.
+                            </span>
+                        </div>
+
+                        <div class="activity-item">
+                            <strong>
+                                Belum ada kegiatan
+                            </strong>
+
+                            <span>
+                                Data kegiatan akan muncul
+                                di sini.
+                            </span>
+                        </div>
+
+                        <div class="activity-item">
+                            <strong>
+                                Belum ada galeri
+                            </strong>
+
+                            <span>
+                                Foto kegiatan akan muncul
+                                di sini.
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="panel">
+
+                    <div class="panel-title">
+                        Aksi Cepat
+                    </div>
+
+                    <div class="actions">
+
+                        <a href="#" class="action">
+                            ➕ &nbsp; Tambah Berita
+                        </a>
+
+                        <a href="#" class="action">
+                            📅 &nbsp; Tambah Kegiatan
+                        </a>
+
+                        <a href="#" class="action">
+                            👥 &nbsp; Kelola Anggota
+                        </a>
+
+                        <a href="#" class="action">
+                            📷 &nbsp; Tambah Galeri
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</body>
+</html>
