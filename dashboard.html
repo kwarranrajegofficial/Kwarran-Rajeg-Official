@@ -1,677 +1,753 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Dashboard Admin - Kwarran Rajeg Official</title>
+<title>Dashboard Admin | Kwarran Rajeg Official</title>
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, Helvetica, sans-serif;
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    background:#f4f7f6;
+    color:#263238;
+}
+
+/* ================= SIDEBAR ================= */
+
+.sidebar{
+    position:fixed;
+    left:0;
+    top:0;
+    width:255px;
+    height:100vh;
+    background:linear-gradient(180deg,#075e54,#06463f);
+    color:white;
+    padding:20px 15px;
+    z-index:1000;
+    overflow-y:auto;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:5px 10px 22px;
+    border-bottom:1px solid rgba(255,255,255,.15);
+    margin-bottom:20px;
+}
+
+.brand-logo{
+    width:52px;
+    height:52px;
+    min-width:52px;
+    border-radius:50%;
+    background:white;
+    padding:5px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+}
+
+.brand-logo img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    border-radius:50%;
+}
+
+.brand-text h2{
+    font-size:16px;
+    margin-bottom:4px;
+}
+
+.brand-text p{
+    font-size:11px;
+    opacity:.65;
+}
+
+.menu-title{
+    font-size:10px;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    opacity:.55;
+    margin:20px 10px 10px;
+}
+
+.menu a{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    color:white;
+    text-decoration:none;
+    padding:13px 12px;
+    margin-bottom:5px;
+    border-radius:10px;
+    font-size:14px;
+    transition:.2s;
+}
+
+.menu a:hover,
+.menu a.active{
+    background:rgba(255,255,255,.15);
+}
+
+.menu-icon{
+    width:22px;
+    text-align:center;
+    font-size:17px;
+}
+
+.logout{
+    margin-top:25px;
+}
+
+/* ================= MAIN ================= */
+
+.main{
+    margin-left:255px;
+    min-height:100vh;
+}
+
+/* ================= MOBILE HEADER ================= */
+
+.mobile-header{
+    display:none;
+    height:60px;
+    background:#075e54;
+    color:white;
+    align-items:center;
+    padding:0 18px;
+    gap:15px;
+}
+
+.mobile-header button{
+    border:0;
+    background:none;
+    color:white;
+    font-size:25px;
+    cursor:pointer;
+}
+
+/* ================= TOPBAR ================= */
+
+.topbar{
+    height:75px;
+    background:white;
+    border-bottom:1px solid #e7eeee;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 35px;
+}
+
+.topbar h1{
+    font-size:21px;
+}
+
+.admin-info{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.admin-avatar{
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    background:#e2f2ef;
+    color:#075e54;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+}
+
+.admin-info strong{
+    display:block;
+    font-size:13px;
+}
+
+.admin-info small{
+    display:block;
+    color:#888;
+    font-size:11px;
+    margin-top:3px;
+}
+
+/* ================= CONTENT ================= */
+
+.content{
+    padding:30px 35px;
+}
+
+/* ================= WELCOME ================= */
+
+.welcome{
+    min-height:160px;
+    border-radius:18px;
+    padding:28px;
+    margin-bottom:25px;
+    color:white;
+    background:linear-gradient(135deg,#075e54,#0b806b);
+    box-shadow:0 8px 25px rgba(7,94,84,.15);
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    overflow:hidden;
+}
+
+.welcome-text h2{
+    font-size:24px;
+    margin-bottom:9px;
+}
+
+.welcome-text p{
+    font-size:14px;
+    opacity:.85;
+}
+
+.welcome-logo{
+    width:115px;
+    height:115px;
+    border-radius:50%;
+    background:white;
+    padding:9px;
+    object-fit:contain;
+    box-shadow:0 8px 25px rgba(0,0,0,.18);
+}
+
+/* ================= STATISTICS ================= */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+    margin-bottom:25px;
+}
+
+.stat-card{
+    background:white;
+    border:1px solid #edf1f0;
+    border-radius:15px;
+    padding:22px;
+    box-shadow:0 5px 18px rgba(0,0,0,.04);
+    transition:.2s;
+}
+
+.stat-card:hover{
+    transform:translateY(-3px);
+}
+
+.stat-icon{
+    width:45px;
+    height:45px;
+    border-radius:12px;
+    background:#e7f4f1;
+    color:#075e54;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:21px;
+    margin-bottom:15px;
+}
+
+.stat-card h3{
+    font-size:27px;
+    margin-bottom:5px;
+}
+
+.stat-card p{
+    color:#888;
+    font-size:13px;
+}
+
+/* ================= PANELS ================= */
+
+.grid{
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:20px;
+}
+
+.panel{
+    background:white;
+    border:1px solid #edf1f0;
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow:0 5px 18px rgba(0,0,0,.04);
+}
+
+.panel-header{
+    padding:20px;
+    border-bottom:1px solid #edf1f0;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.panel-header h3{
+    font-size:16px;
+}
+
+.panel-header a{
+    color:#075e54;
+    font-size:12px;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+/* ================= ACTIVITY ================= */
+
+.activity{
+    padding:20px;
+}
+
+.activity-item{
+    display:flex;
+    align-items:flex-start;
+    gap:13px;
+    padding:13px 0;
+    border-bottom:1px solid #f0f2f2;
+}
+
+.activity-item:last-child{
+    border-bottom:0;
+}
+
+.activity-icon{
+    width:36px;
+    height:36px;
+    min-width:36px;
+    border-radius:9px;
+    background:#e7f4f1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.activity-item strong{
+    display:block;
+    font-size:13px;
+    margin-bottom:4px;
+}
+
+.activity-item span{
+    font-size:11px;
+    color:#999;
+}
+
+/* ================= QUICK ACTION ================= */
+
+.actions{
+    padding:20px;
+}
+
+.action-btn{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    width:100%;
+    padding:14px;
+    margin-bottom:10px;
+    background:#f6f9f8;
+    border:1px solid #edf1f0;
+    border-radius:10px;
+    color:#333;
+    text-decoration:none;
+    font-size:13px;
+    transition:.2s;
+}
+
+.action-btn:hover{
+    background:#e7f4f1;
+    color:#075e54;
+    transform:translateX(3px);
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:1100px){
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
     }
 
-    body {
-      background: #f4f7f6;
-      color: #263238;
+    .grid{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:700px){
+
+    .sidebar{
+        width:230px;
+        transform:translateX(-100%);
+        transition:.3s;
     }
 
-    /* SIDEBAR */
-    .sidebar {
-      position: fixed;
-      left: 0;
-      top: 0;
-      width: 250px;
-      height: 100vh;
-      background: linear-gradient(180deg, #075e54, #064b43);
-      color: white;
-      padding: 25px 15px;
-      z-index: 1000;
+    .sidebar.show{
+        transform:translateX(0);
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 0 10px 25px;
-      border-bottom: 1px solid rgba(255,255,255,0.15);
-      margin-bottom: 25px;
+    .main{
+        margin-left:0;
     }
 
-    .brand-logo {
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-      background: white;
-      color: #075e54;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
+    .mobile-header{
+        display:flex;
     }
 
-    .brand-text h2 {
-      font-size: 16px;
+    .topbar{
+        padding:0 18px;
     }
 
-    .brand-text p {
-      font-size: 11px;
-      opacity: 0.7;
-      margin-top: 3px;
+    .topbar h1{
+        font-size:17px;
     }
 
-    .menu-title {
-      font-size: 11px;
-      opacity: 0.6;
-      margin: 20px 10px 10px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
+    .content{
+        padding:20px 15px;
     }
 
-    .menu a {
-      display: flex;
-      align-items: center;
-      gap: 13px;
-      color: white;
-      text-decoration: none;
-      padding: 13px 12px;
-      margin-bottom: 5px;
-      border-radius: 10px;
-      font-size: 14px;
-      transition: 0.2s;
+    .welcome{
+        padding:22px;
     }
 
-    .menu a:hover,
-    .menu a.active {
-      background: rgba(255,255,255,0.14);
+    .welcome-text h2{
+        font-size:19px;
     }
 
-    .logout {
-      position: absolute;
-      bottom: 25px;
-      left: 15px;
-      right: 15px;
+    .welcome-text p{
+        font-size:12px;
     }
 
-    .logout a {
-      background: rgba(255,255,255,0.1);
+    .welcome-logo{
+        width:80px;
+        height:80px;
     }
 
-    /* MAIN */
-    .main {
-      margin-left: 250px;
-      min-height: 100vh;
+    .stats{
+        gap:10px;
     }
 
-    /* TOPBAR */
-    .topbar {
-      height: 75px;
-      background: white;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 35px;
-      border-bottom: 1px solid #e8eeee;
+    .stat-card{
+        padding:16px;
     }
 
-    .topbar h1 {
-      font-size: 21px;
-      color: #263238;
+    .stat-card h3{
+        font-size:23px;
+    }
+}
+
+@media(max-width:450px){
+
+    .stats{
+        grid-template-columns:1fr;
     }
 
-    .admin-info {
-      display: flex;
-      align-items: center;
-      gap: 12px;
+    .admin-info div{
+        display:none;
     }
 
-    .admin-avatar {
-      width: 40px;
-      height: 40px;
-      background: #e4f2ef;
-      color: #075e54;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
+    .welcome-logo{
+        display:none;
     }
+}
 
-    .admin-info strong {
-      font-size: 14px;
-    }
-
-    .admin-info small {
-      display: block;
-      color: #888;
-      font-size: 11px;
-      margin-top: 2px;
-    }
-
-    /* CONTENT */
-    .content {
-      padding: 30px 35px;
-    }
-
-    .welcome {
-      background: linear-gradient(135deg, #075e54, #0b806b);
-      color: white;
-      border-radius: 18px;
-      padding: 28px;
-      margin-bottom: 25px;
-      box-shadow: 0 8px 25px rgba(7,94,84,0.15);
-    }
-
-    .welcome h2 {
-      font-size: 23px;
-      margin-bottom: 8px;
-    }
-
-    .welcome p {
-      font-size: 14px;
-      opacity: 0.85;
-    }
-
-    /* STAT CARDS */
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
-      margin-bottom: 25px;
-    }
-
-    .stat-card {
-      background: white;
-      border-radius: 15px;
-      padding: 22px;
-      border: 1px solid #edf1f0;
-      box-shadow: 0 5px 18px rgba(0,0,0,0.04);
-    }
-
-    .stat-icon {
-      width: 45px;
-      height: 45px;
-      border-radius: 12px;
-      background: #e7f4f1;
-      color: #075e54;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 21px;
-      margin-bottom: 15px;
-    }
-
-    .stat-card h3 {
-      font-size: 27px;
-      margin-bottom: 5px;
-    }
-
-    .stat-card p {
-      color: #888;
-      font-size: 13px;
-    }
-
-    /* PANELS */
-    .grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 20px;
-    }
-
-    .panel {
-      background: white;
-      border-radius: 15px;
-      border: 1px solid #edf1f0;
-      overflow: hidden;
-      box-shadow: 0 5px 18px rgba(0,0,0,0.04);
-    }
-
-    .panel-header {
-      padding: 20px;
-      border-bottom: 1px solid #edf1f0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .panel-header h3 {
-      font-size: 16px;
-    }
-
-    .panel-header a {
-      color: #075e54;
-      font-size: 12px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .activity {
-      padding: 20px;
-    }
-
-    .activity-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 13px;
-      padding: 13px 0;
-      border-bottom: 1px solid #f0f2f2;
-    }
-
-    .activity-item:last-child {
-      border-bottom: none;
-    }
-
-    .activity-icon {
-      width: 35px;
-      height: 35px;
-      border-radius: 9px;
-      background: #e7f4f1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #075e54;
-    }
-
-    .activity-item strong {
-      display: block;
-      font-size: 13px;
-      margin-bottom: 4px;
-    }
-
-    .activity-item span {
-      font-size: 11px;
-      color: #999;
-    }
-
-    /* QUICK ACTION */
-    .actions {
-      padding: 20px;
-    }
-
-    .action-btn {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      width: 100%;
-      padding: 14px;
-      margin-bottom: 10px;
-      background: #f6f9f8;
-      border: 1px solid #edf1f0;
-      border-radius: 10px;
-      color: #333;
-      text-decoration: none;
-      font-size: 13px;
-      transition: 0.2s;
-    }
-
-    .action-btn:hover {
-      background: #e7f4f1;
-      color: #075e54;
-    }
-
-    /* MOBILE */
-    .mobile-header {
-      display: none;
-    }
-
-    @media (max-width: 1000px) {
-      .stats {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 700px) {
-
-      .sidebar {
-        width: 220px;
-        transform: translateX(-100%);
-        transition: 0.3s;
-      }
-
-      .sidebar.show {
-        transform: translateX(0);
-      }
-
-      .main {
-        margin-left: 0;
-      }
-
-      .mobile-header {
-        display: flex;
-        height: 60px;
-        background: #075e54;
-        color: white;
-        align-items: center;
-        padding: 0 18px;
-        gap: 15px;
-      }
-
-      .mobile-header button {
-        background: none;
-        border: none;
-        color: white;
-        font-size: 23px;
-        cursor: pointer;
-      }
-
-      .topbar {
-        padding: 0 18px;
-      }
-
-      .topbar h1 {
-        font-size: 17px;
-      }
-
-      .content {
-        padding: 20px 15px;
-      }
-
-      .stats {
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-      }
-
-      .stat-card {
-        padding: 16px;
-      }
-
-      .stat-card h3 {
-        font-size: 23px;
-      }
-    }
-
-    @media (max-width: 450px) {
-      .stats {
-        grid-template-columns: 1fr;
-      }
-
-      .admin-info div {
-        display: none;
-      }
-    }
-  </style>
+</style>
 </head>
 
 <body>
 
-  <!-- SIDEBAR -->
-  <aside class="sidebar" id="sidebar">
+<!-- ================= SIDEBAR ================= -->
+
+<aside class="sidebar" id="sidebar">
 
     <div class="brand">
-      <div class="brand-logo">KR</div>
 
-      <div class="brand-text">
-        <h2>Kwarran Rajeg</h2>
-        <p>Admin Panel</p>
-      </div>
+        <div class="brand-logo">
+            <img src="logo.jpg" alt="Logo Kwarran Rajeg">
+        </div>
+
+        <div class="brand-text">
+            <h2>Kwarran Rajeg</h2>
+            <p>Admin Panel</p>
+        </div>
+
     </div>
 
-    <div class="menu-title">Menu Utama</div>
+
+    <div class="menu-title">
+        Menu Utama
+    </div>
+
 
     <nav class="menu">
 
-      <a href="dashboard.html" class="active">
-        🏠
-        <span>Dashboard</span>
-      </a>
+        <a href="dashboard.html" class="active">
+            <span class="menu-icon">🏠</span>
+            <span>Dashboard</span>
+        </a>
 
-      <a href="#">
-        📰
-        <span>Berita</span>
-      </a>
+        <a href="#">
+            <span class="menu-icon">📰</span>
+            <span>Berita</span>
+        </a>
 
-      <a href="#">
-        📅
-        <span>Kegiatan</span>
-      </a>
+        <a href="#">
+            <span class="menu-icon">📅</span>
+            <span>Kegiatan</span>
+        </a>
 
-      <a href="#">
-        👥
-        <span>Data Anggota</span>
-      </a>
+        <a href="#">
+            <span class="menu-icon">👥</span>
+            <span>Data Anggota</span>
+        </a>
 
-      <a href="#">
-        📷
-        <span>Galeri</span>
-      </a>
+        <a href="#">
+            <span class="menu-icon">📷</span>
+            <span>Galeri</span>
+        </a>
 
-      <a href="#">
-        📄
-        <span>Dokumen</span>
-      </a>
+        <a href="#">
+            <span class="menu-icon">📄</span>
+            <span>Dokumen</span>
+        </a>
 
     </nav>
 
-    <div class="menu-title">Pengaturan</div>
+
+    <div class="menu-title">
+        Pengaturan
+    </div>
+
 
     <nav class="menu">
-      <a href="#">
-        ⚙️
-        <span>Pengaturan</span>
-      </a>
+
+        <a href="#">
+            <span class="menu-icon">⚙️</span>
+            <span>Pengaturan</span>
+        </a>
+
     </nav>
+
 
     <div class="logout">
-      <a href="login.html">
-        🚪
-        <span>Keluar</span>
-      </a>
+
+        <nav class="menu">
+
+            <a href="login.html">
+                <span class="menu-icon">🚪</span>
+                <span>Keluar</span>
+            </a>
+
+        </nav>
+
     </div>
 
-  </aside>
+</aside>
 
 
-  <!-- MAIN -->
-  <main class="main">
+<!-- ================= MAIN ================= -->
 
-    <!-- MOBILE HEADER -->
+<main class="main">
+
+
+    <!-- MOBILE -->
+
     <div class="mobile-header">
-      <button onclick="toggleSidebar()">☰</button>
-      <strong>Kwarran Rajeg</strong>
+
+        <button onclick="toggleSidebar()">
+            ☰
+        </button>
+
+        <strong>
+            Kwarran Rajeg
+        </strong>
+
     </div>
+
 
     <!-- TOPBAR -->
+
     <header class="topbar">
 
-      <h1>Dashboard</h1>
+        <h1>
+            Dashboard
+        </h1>
 
-      <div class="admin-info">
 
-        <div class="admin-avatar">
-          A
+        <div class="admin-info">
+
+            <div class="admin-avatar">
+                A
+            </div>
+
+            <div>
+
+                <strong>
+                    Administrator
+                </strong>
+
+                <small>
+                    Super Admin
+                </small>
+
+            </div>
+
         </div>
-
-        <div>
-          <strong>Administrator</strong>
-          <small>Super Admin</small>
-        </div>
-
-      </div>
 
     </header>
 
 
     <!-- CONTENT -->
+
     <section class="content">
 
-      <!-- WELCOME -->
-      <div class="welcome">
 
-        <h2>Selamat Datang, Admin 👋</h2>
+        <!-- WELCOME -->
 
-        <p>
-          Kelola website Kwarran Rajeg melalui panel administrasi ini.
-        </p>
+        <div class="welcome">
 
-      </div>
+            <div class="welcome-text">
 
+                <h2>
+                    Selamat Datang, Admin 👋
+                </h2>
 
-      <!-- STATISTICS -->
-      <div class="stats">
-
-        <div class="stat-card">
-
-          <div class="stat-icon">📰</div>
-
-          <h3>0</h3>
-
-          <p>Total Berita</p>
-
-        </div>
-
-
-        <div class="stat-card">
-
-          <div class="stat-icon">📅</div>
-
-          <h3>0</h3>
-
-          <p>Total Kegiatan</p>
-
-        </div>
-
-
-        <div class="stat-card">
-
-          <div class="stat-icon">👥</div>
-
-          <h3>0</h3>
-
-          <p>Total Anggota</p>
-
-        </div>
-
-
-        <div class="stat-card">
-
-          <div class="stat-icon">📷</div>
-
-          <h3>0</h3>
-
-          <p>Total Galeri</p>
-
-        </div>
-
-      </div>
-
-
-      <!-- LOWER CONTENT -->
-      <div class="grid">
-
-
-        <!-- AKTIVITAS -->
-        <div class="panel">
-
-          <div class="panel-header">
-
-            <h3>Aktivitas Terbaru</h3>
-
-            <a href="#">Lihat Semua</a>
-
-          </div>
-
-          <div class="activity">
-
-            <div class="activity-item">
-
-              <div class="activity-icon">📰</div>
-
-              <div>
-                <strong>Belum ada berita</strong>
-                <span>Silakan tambahkan berita pertama.</span>
-              </div>
+                <p>
+                    Kelola website Kwarran Rajeg melalui panel administrasi ini.
+                </p>
 
             </div>
 
 
-            <div class="activity-item">
-
-              <div class="activity-icon">📅</div>
-
-              <div>
-                <strong>Belum ada kegiatan</strong>
-                <span>Data kegiatan akan muncul di sini.</span>
-              </div>
-
-            </div>
-
-
-            <div class="activity-item">
-
-              <div class="activity-icon">📷</div>
-
-              <div>
-                <strong>Belum ada galeri</strong>
-                <span>Foto kegiatan akan muncul di sini.</span>
-              </div>
-
-            </div>
-
-          </div>
+            <img
+                src="logo.jpg"
+                alt="Logo Kwarran Rajeg"
+                class="welcome-logo"
+            >
 
         </div>
 
 
-        <!-- QUICK ACTION -->
-        <div class="panel">
+        <!-- STATISTICS -->
 
-          <div class="panel-header">
+        <div class="stats">
 
-            <h3>Aksi Cepat</h3>
 
-          </div>
+            <div class="stat-card">
 
-          <div class="actions">
+                <div class="stat-icon">
+                    📰
+                </div>
 
-            <a href="#" class="action-btn">
-              ➕
-              <span>Tambah Berita</span>
-            </a>
+                <h3>
+                    0
+                </h3>
 
-            <a href="#" class="action-btn">
-              📅
-              <span>Tambah Kegiatan</span>
-            </a>
+                <p>
+                    Total Berita
+                </p>
 
-            <a href="#" class="action-btn">
-              👥
-              <span>Kelola Anggota</span>
-            </a>
+            </div>
 
-            <a href="#" class="action-btn">
-              📷
-              <span>Tambah Foto</span>
-            </a>
 
-          </div>
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    📅
+                </div>
+
+                <h3>
+                    0
+                </h3>
+
+                <p>
+                    Total Kegiatan
+                </p>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    👥
+                </div>
+
+                <h3>
+                    0
+                </h3>
+
+                <p>
+                    Total Anggota
+                </p>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    📷
+                </div>
+
+                <h3>
+                    0
+                </h3>
+
+                <p>
+                    Total Galeri
+                </p>
+
+            </div>
 
         </div>
 
-      </div>
 
-    </section>
+        <!-- PANELS -->
 
-  </main>
+        <div class="grid">
 
 
-  <script>
+            <!-- AKTIVITAS -->
 
-    function toggleSidebar() {
+            <div class="panel">
 
-      const sidebar = document.getElementById("sidebar");
+                <div class="panel-header">
 
-      sidebar.classList.toggle("show");
+                    <h3>
+                        Aktivitas Terbaru
+                    </h3>
 
-    }
+                    <a href="#">
+                        Lihat Semua
+                    </a>
 
-  </script>
+                </div>
 
-</body>
-</html>
+
+                <div class="activity">
+
+
+                    <div class="activity-item">
+
+                        <div class="activity-icon">
+                            📰
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Belum
